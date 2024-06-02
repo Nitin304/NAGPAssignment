@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: postgres-settings
+  labels:
+    app: postgres-settings
+data: 
+  POSTGRES_USER: "postgres"
+  POSTGRES_PORT: '5432'
+  POSTGRES_HOST: "postgres.postgres"
+  NODE_ENV: "production"

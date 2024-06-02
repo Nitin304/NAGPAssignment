@@ -1,0 +1,53 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: apiservice
+spec:
+  strategy: 
+    type: RollingUpdate
+  replicas: 3
+  selector:
+    matchLabels:
+      app: apiservice
+  template:
+    metadata:
+      labels:
+        app: apiservice
+    spec:
+      containers:
+        - name: apiservice-container
+          image: nitin304/nagpassignment:2
+          envFrom: 
+            - configMapRef: 
+                name: postgres-settings
+            - secretRef: 
+                name: db-secret
+          ports:
+            - name: http
+              containerPort: 3000
+              protocol: TCP
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: apiservice-lb
+spec:
+  type: LoadBalancer
+  ports:
+    - port: 80
+      targetPort: 3000
+  selector:
+    app: apiservice
+---
+apiVersion: autoscaling/v1
+kind: HorizontalPodAutoscaler
+metadata:
+  name: apiservice-autoscale
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: apiservice
+  maxReplicas: 4
+  minReplicas: 1
+  targetCPUUtilizationPercentage: 10

@@ -39,42 +39,42 @@ Steps to Follow ->
 
 Demo Commands
 Show all objects deployed and running
-    1. View Pods
-        -- kubectl get pod
-    2. View Load Balancer and Postgres Headless Service
-        -- kubectl get svc
-    3. View Stateful Set
-        -- kubectl get sts
-    4. View Deployment for API Service
-        -- kubectl get deploy
-    5. View Secrets for PostgreSQL
-        -- kubectl get secret
-    6. View ConfigMap for API Service
-        -- kubectl get configmap
+1. View Pods
+    -- kubectl get pod
+2. View Load Balancer and Postgres Headless Service
+    -- kubectl get svc
+3. View Stateful Set
+    -- kubectl get sts
+4. View Deployment for API Service
+    -- kubectl get deploy
+5. View Secrets for PostgreSQL
+    -- kubectl get secret
+6. View ConfigMap for API Service
+    -- kubectl get configmap
 Run API and retrieve records from db
-    1. View Record: http://35.247.86.209/todos -- GET
-    2. Add Record: http://35.247.86.209/todos -- POST
-        Payload:{
-                    "title": "New Entry into TODO"
-                }
+1. View Record: http://35.247.86.209/todos -- GET
+2. Add Record: http://35.247.86.209/todos -- POST
+    Payload:{
+                "title": "New Entry into TODO"
+            }
 
 Show that deleting db pods doesn’t delete data from db
-    1. -- kubectl delete pod <POD_NAME>
+1. -- kubectl delete pod <POD_NAME>
 
 Show rolling update for API service pods
-    1. Apply apiService_1.yaml which uses a different image version:2 tag name
-    2. -- kubectl apply -f apiservice_1.yaml
+1. Apply apiService_1.yaml which uses a different image version:2 tag name
+2. -- kubectl apply -f apiservice_1.yaml
 
 Show Horizontal Pod Autoscaler in action
-    1. -- kubectl exec -it apiservice-7bf6bfc6db-75xlm -- node
-    2. Run function to get fibonaci series nth place number.
-        function fibonacci(n){
-            if(n<=2){
-                return 1
-            }
-            else {
-                return fibonacci(n-1) + fibonacci(n-2);
-            }
+1. -- kubectl exec -it apiservice-7bf6bfc6db-75xlm -- node
+2. Run function to get fibonaci series nth place number.
+    function fibonacci(n){
+        if(n<=2){
+            return 1
         }
-    3. -- kubectl get po -w
-       -- kubectl get hpa -w 
+        else {
+            return fibonacci(n-1) + fibonacci(n-2);
+        }
+    }
+3. -- kubectl get po -w
+    -- kubectl get hpa -w 

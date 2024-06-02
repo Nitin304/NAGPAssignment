@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: apiservice-container
-          image: nitin304/nagpassignment:1
+          image: nitin304/nagpassignment:1.1
           envFrom: 
             - configMapRef: 
                 name: postgres-settings
@@ -26,6 +26,9 @@ spec:
             - name: http
               containerPort: 3000
               protocol: TCP
+          resources:
+            requests:
+              cpu: "250m"
 ---
 apiVersion: v1
 kind: Service
@@ -49,5 +52,5 @@ spec:
     kind: Deployment
     name: apiservice
   maxReplicas: 4
-  minReplicas: 1
+  minReplicas: 2
   targetCPUUtilizationPercentage: 10

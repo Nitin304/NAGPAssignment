@@ -1,12 +1,12 @@
 Description: To-Do app service which exposes API for View, Add, Delete for the App
 
-Author: Nitin Arora
-Github: https://github.com/Nitin304/
-Repo Link: 
-Video Recording Link: 
-URL for Service Tier: http://35.247.86.209/todos
-Docker hub Image: https://hub.docker.com/repository/docker/nitin304/nagpassignment/general
-                  nitin304/nagpassignment:<TAG_NAME>
+Important Links:
+1. Author: Nitin Arora
+2. Github: https://github.com/Nitin304/
+3. Repo Link: https://github.com/Nitin304/NAGPAssignment
+4. Video Recording Link: https://drive.google.com/file/d/1FVZFLjmMOkYO6pMo2nrQD53CN2MOIaht/view?usp=sharing
+5. URL for Service Tier: http://35.247.86.209/todos-- URL may change
+6. Docker hub Image: https://hub.docker.com/repository/docker/nitin304/nagpassignment/general  <nitin304/nagpassignment:<TAG_NAME>>
 
 Description: To-Do app service which exposes API for View, Add, Delete for the App
 
@@ -32,7 +32,7 @@ Steps to Follow ->
         c. Create Horizontal Pod Auto Scaler which will increase the no. of pods to 4 if the CPU utilization crosses a number.
     -- kubectl apply -f apiservice.yaml
 7. Create the schema in DB, run migrations and run seed.
-    -- kubectl exec <POD_NAME> --stdin --tty -- createdb -U sample todos
+    -- kubectl exec <POD_NAME> --stdin --tty -- createdb -U postgres todos
     -- kubectl exec <POD_NAME> knex migrate:latest
     -- kubectl exec <POD_NAME> knex seed:run
 
@@ -66,15 +66,18 @@ Show rolling update for API service pods
 2. -- kubectl apply -f apiservice_1.yaml
 
 Show Horizontal Pod Autoscaler in action
-1. -- kubectl exec -it apiservice-7bf6bfc6db-75xlm -- node
+1. -- kubectl exec -it <POD_NAME> -- node
 2. Run function to get fibonaci series nth place number.
     function fibonacci(n){
-        if(n<=2){
+        if(n<2){
             return 1
         }
         else {
-            return fibonacci(n-1) + fibonacci(n-2);
+            return fibonacci(n-2) + fibonacci(n-1);
         }
     }
 3. -- kubectl get po -w
     -- kubectl get hpa -w 
+
+Other Commands;
+1. psql -U postgres -d todos -c 'SELECT * FROM mytable'
